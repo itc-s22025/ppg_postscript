@@ -32,3 +32,6 @@ Dockerコンテナ再起動
 ``` terminal
 $ docker container start (コンテナ名)
 ```
+
+## メモ
+- [思ったこととか](https://github.com/itc-s22025/ppg_postscript/blob/main/memo.md)
