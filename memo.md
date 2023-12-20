@@ -36,7 +36,9 @@ const Home = () => {
   useEffect(() => {
     // バックエンドのAPIエンドポイントにリクエストを送信
     fetch('/api/data')
+      // .then ... 返ってきたレスポンスをjson形式に直して
       .then(response => response.json())
+      // .them ... それを更にsetDataにわたしてる？
       .then(data => setData(data));
   }, []);
 
@@ -72,6 +74,7 @@ const sampleData = [
 
 // APIエンドポイントの実装
 app.get('/api/data', (req, res) => {
+  // sampleDataをjson形式でレスポンス
   res.json(sampleData);
 });
 
@@ -79,3 +82,23 @@ app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
 ```
+##### APIエンドポイント：クライアントが特定の機能やデータにアクセスするための入り口
+- クライアントはHTTPリクエスト（GET、POST、PUT、DELETEなど）を使用してAPIエンドポイントにリクエストを送信、応答を受け取る
+- APIエンドポイントはリクエストに基づいて適切な処理を行い、クライアントにレスポンスを返します
+##### Httpリクエスト
+- HTTPリクエスト：リクエストライン、ヘッダ、メッセージボディからなる
+- リクエストラインの例：POST /test.html HTTP/1.1\r\n(test.htmlにHTTP/1.1でPOSTするよ！)
+- ヘッダ：オリジンとかコンテントの長さとかかかれてる
+- メッセージボディの例：q=test&submitTest=%E6%A4%9C%E7%B4%A2(受け渡されるパラメータの値とか)
+##### Fetch APIてなに
+- ブラウザ上のJavaScriptからHTTPネットワークリクエストを行うためのインターフェース
+- リクエストやレスポンスといったプロトコルを操作する要素にアクセスするためのJSインターフェース
+- HTTPリクエストを発行するAPI
+- sample⇩
+``` terminal
+(await fetch("https://qiita.com/api/v2/items")).json();
+```
+⇨"https://qiita.com/..." にAPIリクエストを送信している
+- つまり``` fetch('/api/data')```はプロジェクト内のapi/data/にAPIリクエストを送信している
+- そういえばリアクトってapiフォルダがデフォルトであるらしいけどバージョン変わってるからわかんない
+###### つまりバックエンド側では``` app.get() ```でルーティング(エンドポイントとレスポンスの定義)、フロント側ではそのエンドポイントに``` fetch() ```でアクセスしてフロントに表示するための処理をかくってこと？
