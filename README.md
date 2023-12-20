@@ -4,6 +4,8 @@
 
 1. 最初にとりあえず全体のDockerコンテナつくった: [Dockerコンテナ作成](https://github.com/itc-s22025/ppg_postscript/blob/main/aboutFirstMakingDocker.md)
 2. データベースだけのコンテナつくった: [DBのDockerコンテナ作成](https://github.com/itc-s22025/ppg_postscript/blob/main/aboutDbContainer.md)
+3. データベースのテーブルとかデータが作れるかテストした： [Database関連](https://github.com/itc-s22025/ppg_postscript/blob/main/aboutDb.md)
+
 
 ## 起動関連
 ppgディレクトリ下
