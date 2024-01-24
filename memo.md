@@ -4,6 +4,7 @@
 - フロント・バック・DB用いたアプリケーションの作成手順確認
 - Poolてなに(postgres)
 - [PosgreWeb](https://postgresweb.com/)
+  
 
 ### フロントエンドとバックエンドの連携
 ⇨ RestfulAPIを使用して連携させる
@@ -102,3 +103,26 @@ app.listen(port, () => {
 - つまり``` fetch('/api/data')```はプロジェクト内のapi/data/にAPIリクエストを送信している
 - そういえばリアクトってapiフォルダがデフォルトであるらしいけどバージョン変わってるからわかんない
 ###### つまりバックエンド側では``` app.get() ```でルーティング(エンドポイントとレスポンスの定義)、フロント側ではそのエンドポイントに``` fetch() ```でアクセスしてフロントに表示するための処理をかくってこと？
+
+
+## promiseについて
+axios.post()するとPromiseオブジェクト(Promise{pending})が返ってきた
+##### Promiseオブジェクト...非同期処理の完了もしくは失敗の結果及びその結果の値を返す
+- 待機(Pending) ...初期状態。成功も失敗もしていない
+- 履行(fulfilled) ...処理が成功して完了したことを意味
+- 拒否(rejected) ...処理が失敗したことを意味
+待機➔履行or拒否状態になる➔.then()処理➔returnが返ってきて再度待機状態になる？➔.then()/.catch()
+- 確認したらpromiseStateはfulgilledだったので、二度目のpending状態かも
+- つまり、returnで返ってきた値をどうするか.then()で処理しなおせばいいってことかも
+
+## async/ awaitについて
+##### asyncとは
+- 非同期関数を定義する関数宣言のこと async function sample()とすることで、ここから非同期関数ですよ〜て宣言していることになる
+- async関数が呼び出されるとpromiseを返す
+- async関数が値をreturnすると、Promiseは戻り値をresolveする
+- async関数が例外や値をthrowした場合はその値をrejectする
+
+##### awaitとは
+- async関数内でPromiseの結果が返されるまで待機(処理を一時停止)する演算子　Promiseが処理している間await演算子が指定された関数は実行されない
+- 結果が返されたら実行する
+
