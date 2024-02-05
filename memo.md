@@ -36,10 +36,10 @@ const Home = () => {
 
   useEffect(() => {
     // バックエンドのAPIエンドポイントにリクエストを送信
-    fetch('/api/data')
+    fetch('http://localhost:3001/api/data')
       // .then ... 返ってきたレスポンスをjson形式に直して
       .then(response => response.json())
-      // .them ... それを更にsetDataにわたしてる？
+      // .then ... それを更にsetDataにわたしてる？
       .then(data => setData(data));
   }, []);
 
@@ -104,6 +104,18 @@ app.listen(port, () => {
 - そういえばリアクトってapiフォルダがデフォルトであるらしいけどバージョン変わってるからわかんない
 ###### つまりバックエンド側では``` app.get() ```でルーティング(エンドポイントとレスポンスの定義)、フロント側ではそのエンドポイントに``` fetch() ```でアクセスしてフロントに表示するための処理をかくってこと？
 
+#### CORSについて
+例えばバックエンド(localhost:3001)でExpressを使うとき：
+``` terminal
+const cors = require(cors);
+app.use(cors({
+    //localhost:3000からのアクセスを許可？
+    origin: "http://localhost:3000",
+    credentials: true,
+    //⇩こいつ書かないとcookieのconnect.sidが一致しなくなる
+    sameSite: "None",
+}));
+```
 
 ## promiseについて
 axios.post()するとPromiseオブジェクト(Promise{pending})が返ってきた
@@ -125,4 +137,8 @@ axios.post()するとPromiseオブジェクト(Promise{pending})が返ってき�
 ##### awaitとは
 - async関数内でPromiseの結果が返されるまで待機(処理を一時停止)する演算子　Promiseが処理している間await演算子が指定された関数は実行されない
 - 結果が返されたら実行する
+
+
+## Contextについて
+- reactのcontext:通常親から子にデータを渡すときはprops使うが、多数の中間コンポーネントを中継しないといけない場合や、多くのコンポーネントがそのデータを使うとき、contextを使う
 
